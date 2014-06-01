@@ -1,5 +1,5 @@
 <?php
-	$colors = array("red", "orange", "green", "blue", "black");
+	$colors = array("#e74c3c", "#e67e22", "#2ecc71", "#3498db", "#9b59b6", "#34495e");
 	ini_set('memory_limit', '-1');	
 	$map = false;
 	$index = 0;

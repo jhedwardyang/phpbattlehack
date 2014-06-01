@@ -1,3 +1,9 @@
+<?php $v = 0; if(isset($_GET['1'])) $v = 1;
+if(isset($_GET['2'])) $v = 2;
+if(isset($_GET['3'])) $v = 3;
+if(isset($_GET['4'])) $v = 4;
+if($v == 0) $v = 1;
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,25 +11,37 @@
     <meta charset="utf-8">
     <title>EnJoy by #impact</title>
     <style>
-      html, body, #map-canvas {
-        height: 100%;
+      a:link,a:active,a:visited{
+        text-decoration: none;
+        color:black;
+      }
+      html, body, #map-canvas, #hihi, #XX{
+        height: 100% !important;
         margin: 0px;
-        padding: 0px
+        padding: 0px;
       }
       #map-canvas{
-        width:80%;
+        width:79% !important;
         display: inline-block;
-        vertical-align: text-top;
+        vertical-align: top;
       }
       #hihi{
-        width:19%;
         display: inline-block;
         vertical-align: text-top;
       }
+      #hihi, #XX{
+        width:19% !important;
+      }
+      div.title{
+        font-size:14px;
+        color:#2c3e50;
+      }
+      div.directions{
+        color:#333 !important;
+        font-size: 12px;
+      }
     </style>
-    <div id="map-canvas"></div>
-    <div id="hihi" style="font-style: Helvetica;font-size:14px;">
-    </div>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
@@ -45,7 +63,7 @@ var fail;
 function initialize() {
   var mapOptions = {
     zoom: 14,
-    center: new google.maps.LatLng(43.659905, -79.388648)
+    center: new google.maps.LatLng(43.667905, -79.408648)
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -79,26 +97,27 @@ function initialize() {
       temp = temp.substring(0,temp.length-1);
     }
     temp = "directions.php?index="+index+"&"+temp;
-    $.get(temp, function(data){
+    // $.get(temp, function(data){
+    $.ajax({
+      url: temp,
+      asynch: false
+    }).done(function(data){
       var cc  = "black";
       var tt = jQuery.parseJSON(data);
       var showmap = [];
-      var colors = ["red", "orange", "green", "blue", "black"];
+      var colors = ["#e74c3c", "#e67e22", "#2ecc71", "#3498db", "#9b59b6", "#34495e"];
       var index = tt[1].index;
 
-      $("#hihi").append("<div style='width:100%;text-align:center;padding:3px;margin:3px;background:"+colors[index]+";'><div>Bank "+index+"</div><div class='directions'>");
+      $("#hihi").append("<a href='#"+(parseInt(index)+1)+"'><div style='width:100%;text-align:center;padding:3px;margin:3px;background:"+colors[index]+";'><div class='title'>Food Bank "+(parseInt(index)+1)+"</div><div "+(<?php echo $v-1; ?> == index?"":"style='display:none;'")+" class='directions a"+index+"'></div></div></a>");
+
+
 
       for(index2 = 0; index2 < tt.length; ++index2){
         showmap.push(new google.maps.LatLng(tt[index2].loc[0],tt[index2].loc[1]));
         cc = tt[index2].index;
-        $("#hihi").append(tt[index2].html_instructions);
-        $("#hihi").append("<br />");
+        $(".a"+index).append(tt[index2].html_instructions);
+        $(".a"+index).append("<br />");
       }
-
-      $("#hihi").append("</div></div>");
-          
-          
-
 
       var flightPath = new google.maps.Polyline({
         path: showmap,
@@ -109,6 +128,8 @@ function initialize() {
       });
 
       flightPath.setMap(fail);
+
+
     });
   }
 
@@ -145,13 +166,22 @@ function setMarkers(map, locations, icon) {
     });
   }
 }
-
+$(document).on('click', 'div.title', function(){
+    if($(this).parent("div").children("div.directions").is(":visible")){
+      $("div.directions").slideUp();
+    }else
+    {
+      $("div.directions").slideUp();
+      $(this).parent("div").children("div.directions").slideDown();
+    }
+}); 
 
 });
-
     </script>
   </head>
-  <body>
-    <div id="map-canvas"></div>
+  <body style='overflow:none;'>
+  <div id="map-canvas"></div>
+    <div id="hihi" style="font-style: Helvetica;font-size:14px;height:100%;margin:0;padding:0;">
+    </div>
   </body>
 </html>
