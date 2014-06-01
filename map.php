@@ -11,6 +11,13 @@ if($v == 0) $v = 1;
     <meta charset="utf-8">
     <title>EnJoy by #impact</title>
     <style>
+    html{
+      overflow: hidden;
+    }
+    #hihi{
+      overflow-y: scroll !important;
+      overflow-x:hidden;
+    }
       html,body,div{
         font-family: 'Helvetica';
       }
@@ -18,7 +25,7 @@ if($v == 0) $v = 1;
         text-decoration: none;
         color:black;
       }
-      html, body, #map-canvas, #hihi, #XX{
+      html, body, #map-canvas, #hihi{
         height: 100% !important;
         margin: 0px;
         padding: 0px;
@@ -32,16 +39,19 @@ if($v == 0) $v = 1;
         display: inline-block;
         vertical-align: text-top;
       }
-      #hihi, #XX{
-        width:19% !important;
+      #hihi{
+        width:20.5% !important;
       }
       div.title{
         font-size:20px;
         color:#2c3e50;
         color:#333;
         font-weight: bold;
+        padding:10px;
       }
       div.directions{
+        border-top:1px solid #333;
+        padding-top:10px;
         color:#333 !important;
         font-size: 12px;
       }
@@ -200,9 +210,11 @@ $(document).on('click', 'div.title', function(){
 });
     </script>
   </head>
-  <body style='overflow:none;'>
+  <body style='overflow:none;position:relative;'>
+  <!-- <img src="http://projectenjoy.com/images/logo.png" height="127px" width="280px" style='position:absolute;top:5px;left:50px;z-index:9999;' />-->
   <div id="map-canvas"></div>
     <div id="hihi" style="font-style: Helvetica;font-size:14px;height:100%;margin:0;padding:0;">
+      <img src="logo.jpg" height="127px" width="280px"/>
     </div>
   </body>
 </html>
