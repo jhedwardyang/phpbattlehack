@@ -9,6 +9,6 @@
 	    CURLOPT_POSTFIELDS => NULL
 	));
 	$output = curl_exec($curl);;
-	curl_close($ch);
+	curl_close($curl);
 	echo $output;
 ?>

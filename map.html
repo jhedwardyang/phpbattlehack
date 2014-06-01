@@ -10,7 +10,20 @@
         margin: 0px;
         padding: 0px
       }
+      #map-canvas{
+        width:80%;
+        display: inline-block;
+        vertical-align: text-top;
+      }
+      #hihi{
+        width:19%;
+        display: inline-block;
+        vertical-align: text-top;
+      }
     </style>
+    <div id="map-canvas"></div>
+    <div id="hihi" style="font-style: Helvetica;font-size:14px;">
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
@@ -65,19 +78,32 @@ function initialize() {
       }
       temp = temp.substring(0,temp.length-1);
     }
-    temp = "directions.php?"+temp;
+    temp = "directions.php?index="+index+"&"+temp;
     $.get(temp, function(data){
+      var cc  = "black";
       var tt = jQuery.parseJSON(data);
       var showmap = [];
+      var colors = ["red", "orange", "green", "blue", "black"];
+      var index = tt[1].index;
+
+      $("#hihi").append("<div style='width:100%;text-align:center;padding:3px;margin:3px;background:"+colors[index]+";'><div>Bank "+index+"</div><div class='directions'>");
+
       for(index2 = 0; index2 < tt.length; ++index2){
-        showmap.push(new google.maps.LatLng(tt[index2][0],tt[index2][1]));
+        showmap.push(new google.maps.LatLng(tt[index2].loc[0],tt[index2].loc[1]));
+        cc = tt[index2].index;
+        $("#hihi").append(tt[index2].html_instructions);
+        $("#hihi").append("<br />");
       }
 
-      var tempcolors = ['red','orange','yellow','green','blue','black'];
+      $("#hihi").append("</div></div>");
+          
+          
+
+
       var flightPath = new google.maps.Polyline({
         path: showmap,
         geodesic: true,
-        strokeColor: tempcolors[Math.floor((Math.random() * tempcolors.length) + 0)],
+        strokeColor: colors[cc],
         strokeOpacity: 1.0,
         strokeWeight: 2
       });

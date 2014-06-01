@@ -1,0 +1,40 @@
+<html lang="en-US">
+
+
+<title>Simple Range Input Slider With Output</title>
+
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div>
+  <img src="-0.png" style="padding-left:5px;"/>
+</div>
+<div style="position:relative;">
+  <img src="-550.png" style="position:absolute;left:0;top:0;"/>
+  <img src="-850.png" style="position:absolute;left:0;top:0;" id="me"/>
+
+</div>
+<div style="position:absolute;top:100px;">
+<script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=jh.edwardyang@gmail.com" 
+    data-button="donate" 
+    data-name="Help the Homeless" 
+    data-quantity="1" 
+    data-amount="10.00" 
+    data-currency="CAD" 
+    data-shipping="0" 
+    data-tax="0" 
+    data-env="sandbox"
+></script>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $("#me").click(function(){
+      $(this).hide();
+    });
+  });
+    </script>
+
+    </body>
+  </html>

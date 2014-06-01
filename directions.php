@@ -1,16 +1,23 @@
 <?php
+	$colors = array("red", "orange", "green", "blue", "black");
 	ini_set('memory_limit', '-1');	
 	$map = false;
+	$index = 0;
+	$print = 0;
 	if(count($_GET) >= count($_POST))
 	{
+		if(isset($_GET['print'])) $print = 1;
 		$start = $_GET['start'];
 		$way = $_GET['way'];
+		$index = $_GET['index'];
 		if(isset($_GET['map'])) $map = true;
 	}
 	else
 	{
+		if(isset($_POST['print'])) $print = 1;
 		$start = $_POST['start'];
 		$way = $_POST['way'];
+		$index = $_POST['index'];
 		if(isset($_POST['map'])) $map = true;
 	}
 	if($start == NULL || $start == "") exit(0);
@@ -28,13 +35,23 @@
 	));
 	$output = curl_exec($curl);
 	$total = json_decode($output);
-	curl_close($ch);
+	if($print){
+		echo "<pre>";
+		echo $total;
+		echo "</pre>";
+	}
+	curl_close($curl);
 	$total = $total->routes[0];
-	$return = array( array($total->legs[0]->start_location->lat, $total->legs[0]->start_location->lng) );
+	$return = array( (object) array('loc' => array($total->legs[0]->start_location->lat, $total->legs[0]->start_location->lng), 'index' => $index));
 	foreach($total->legs as $leg)
 	{
 		foreach($leg->steps as $step){
-			array_push($return, array($step->end_location->lat, $step->end_location->lng));
+			array_push($return, (object) array('loc' => array($step->end_location->lat, $step->end_location->lng), 
+				'duration' => $step->duration,
+				'html_instructions' => $step->html_instructions,
+				'distance' => $step->distance,
+				'index' => $index
+			));
 		}
 	}
 	if(!$map)
