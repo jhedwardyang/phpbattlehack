@@ -3,20 +3,20 @@
 	  {
 	    "name": "Fort York Food Bank",
 	    "addr": "797+Dundas+St+W,Toronto,ON",
-	    "lat": "43.651892",
-	    "lng": "-79.407979"
+	    "lat": 43.651892,
+	    "lng": -79.407979
 	  },
 	  {
 	    "name": "Ontario Association of Food Banks",
 	    "addr": "555+Bloor+St+W,Toronto,ON",
-	    "lat": "43.665148",
-	    "lng": "-79.410481"
+	    "lat": 43.665148,
+	    "lng": -79.410481
 	  },
 	  {
 	    "name": "St. Peters Food Bank",
 	    "addr": "188+Carlton+St,Toronto,ON",
-	    "lat": "43.663406",
-	    "lng": "-79.372106"
+	    "lat": 43.663406,
+	    "lng": -79.372106
 	  }
 	],
 	"locations": {
@@ -24,50 +24,50 @@
 	    [{
 	      "name": "Cabal",
 	      "addr": "782+King+St+W,Toronto,ON",
-	      "lat": "43.643350",
-	      "lng": "-79.406283"
+	      "lat": 43.643350,
+	      "lng": -79.406283
 	    },
 	    {
 	      "name": "Baby Huey",
 	      "addr": "72+Ossington+Ave,Toronto,ON",
-	      "lat": "43.645820",
-	      "lng": "-79.419535"
+	      "lat": 43.645820,
+	      "lng": -79.419535
 	    },
 	    {
 	      "name": "Blue Banana Market",
 	      "addr": "250+Augusta+Ave,Toronto,ON",
-	      "lat": "43.655578",
-	      "lng": "-79.402576"
+	      "lat": 43.655578,
+	      "lng": -79.402576
 	    },{
 	      "addr": "720+Spadina+Ave,Toronto,ON",
-	      "lat": "43.665406",
-	      "lng": "-79.403378"
+	      "lat": 43.665406,
+	      "lng": -79.403378
 	    }],
 	    [
 	    {
 	      "name": "Orbit Room",
 	      "addr": "580+College+St,Toronto,ON",
-	      "lat": "43.655363",
-	      "lng": "-79.413235"
+	      "lat": 43.655363,
+	      "lng": -79.413235
 	    },
 	    {
 	      "name": "Hub Coffee House & Locavorium",
 	      "addr": "983+Dovercourt+RD,Toronto,ON",
-	      "lat": "43.666881",
-	      "lng": "-79.431555"
+	      "lat": 43.666881,
+	      "lng": -79.431555
 	    }],
 	    []
 	  ],
 	  "inactive": [
 	    {
 	      "addr": "Phipps+St,Toronto,ON",
-	      "lat": "43.665197",
-	      "lng": "-79.386557"
+	      "lat": 43.665197,
+	      "lng": -79.386557
 	    },
 	    {
 	      "addr": "Grange+Pl,Toronto,ON",
-	      "lat": "43.652628",
-	      "lng": "-79.394100"
+	      "lat": 43.652628,
+	      "lng": -79.394100
 	    }
 	  ]
 	}
