@@ -134,7 +134,7 @@ function initialize() {
         if(index2 != 0) toappend+="<br />";
       }
       $(".a"+index).append("<span style='font-size:20px;font-weight:bold;'>Total: "+Math.ceil(s1/1000)+" km - "+Math.ceil(s2/60)+" minutes</span><br />");
-      $(".a"+index).append(toappend);
+      $(".a"+index).append(toappend+"<button class='gogo btn btn-success' id='gogo"+index+"'>Start Traveling</button>");
       toappend = "";
 
       var flightPath = new google.maps.Polyline({
@@ -184,6 +184,9 @@ function setMarkers(map, locations, icon) {
     });
   }
 }
+$(document).on('click', 'button.gogo', function(){
+  $.get( "call.php", function( data ) {});
+});
 $(document).on('click', 'div.title', function(){
     if($(this).parent("div").children("div.directions").is(":visible")){
       $("div.directions").slideUp();
