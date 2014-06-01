@@ -17,7 +17,7 @@
 $(document).ready(function() {
   var banks = [];
   var locations = {};
-  $.getJSON("http://leona.walnutio.com:3000/analysis/cluster", function(d) {
+  $.getJSON("cluster.php", function(d) {
         banks = d.banks;
         locations = d.locations;
         initialize();
