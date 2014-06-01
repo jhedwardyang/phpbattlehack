@@ -214,7 +214,7 @@ $(document).on('click', 'div.title', function(){
   <!-- <img src="http://projectenjoy.com/images/logo.png" height="127px" width="280px" style='position:absolute;top:5px;left:50px;z-index:9999;' />-->
   <div id="map-canvas"></div>
     <div id="hihi" style="font-style: Helvetica;font-size:14px;height:100%;margin:0;padding:0;">
-      <img src="logo.jpg" height="127px" width="280px"/>
+      <center><img src="logo.jpg" height="127px" width="280px"/></center>
     </div>
   </body>
 </html>
