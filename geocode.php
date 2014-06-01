@@ -16,7 +16,5 @@
 	$total = $total->results[0];
 	curl_close($ch);
 	$return = (object) array('success' => (isset($total->formatted_address)?true:false), 'addr' => $total->formatted_address, 'lat' => $total->geometry->location->lat, 'lng' => $total->geometry->location->lng);
-	echo "<pre>";
 	echo json_encode($return);
-	echo "</pre>";
 ?>

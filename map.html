@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Complex icons</title>
+    <title>EnJoy by #impact</title>
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -11,8 +11,82 @@
         padding: 0px
       }
     </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script>
+var fail;
+var banks = [
+  {
+    'name': 'Fort York Food Bank',
+    'addr': '797+Dundas+St+W,Toronto,ON',
+    'lat': '43.651892',
+    'lng': '-79.407979'
+  },
+  {
+    'name': 'Ontario Association of Food Banks',
+    'addr': '555+Bloor+St+W,Toronto,ON',
+    'lat': '43.665148',
+    'lng': '-79.410481'
+  },
+  {
+    'name': 'St. Peters Food Bank',
+    'addr': '188+Carlton+St,Toronto,ON',
+    'lat': '43.663406',
+    'lng': '-79.372106'
+  },
+];
+var locations = {
+  'routes': [
+    [{
+      'name': 'Cabal',
+      'addr': '782+King+St+W,Toronto,ON',
+      'lat': '43.643350',
+      'lng': '-79.406283'
+    },
+    {
+      'name': 'Baby Huey',
+      'addr': '72+Ossington+Ave,Toronto,ON',
+      'lat': '43.645820',
+      'lng': '-79.419535'
+    },
+    {
+      'name': 'Blue Banana Market',
+      'addr': '250+Augusta+Ave,Toronto,ON',
+      'lat': '43.655578',
+      'lng': '-79.402576'
+    }],
+    [{
+      'addr': '720+Spadina+Ave,Toronto,ON',
+      'lat': '43.665406',
+      'lng': '-79.403378'
+    },
+    {
+      'name': 'Orbit Room',
+      'addr': '580+College+St,Toronto,ON',
+      'lat': '43.655363',
+      'lng': '-79.413235'
+    },
+    {
+      'name': 'Hub Coffee House & Locavorium',
+      'addr': '983+Dovercourt+RD,Toronto,ON',
+      'lat': '43.666881',
+      'lng': '-79.431555'
+    }],
+    []
+  ],
+  'inactive': [
+    {
+      'addr': 'Phipps+St,Toronto,ON',
+      'lat': '43.665197',
+      'lng': '-79.386557'
+    },
+    {
+      'addr': 'Grange+Pl,Toronto,ON',
+      'lat': '43.652628',
+      'lng': '-79.394100'
+    }
+  ]
+}
 
 function initialize() {
   var mapOptions = {
@@ -21,24 +95,11 @@ function initialize() {
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-  setMarkers(map, rest);
 
-  var flightPlanCoordinates = [
-    new google.maps.LatLng(43.659905, -79.388648),
-    new google.maps.LatLng(43.669905, -79.398648),
-    new google.maps.LatLng(43.679905, -79.398648),
-    new google.maps.LatLng(43.649905, -79.398648)
-  ];
-  var flightPath = new google.maps.Polyline({
-    path: flightPlanCoordinates,
-    geodesic: true,
-    strokeColor: '#FF0000',
-    strokeOpacity: 1.0,
-    strokeWeight: 2
-  });
-
-  flightPath.setMap(map);
-
+  setMarkers(map, active, 'food.png');
+  setMarkers(map, inactive, 'food2.png');
+  setMarkers(map, food, 'bank.png');
+  fail = map;
 }
 
 /**
@@ -54,9 +115,59 @@ var rest = [
   [43.639905, -79.398648]
 ];
 
-function setMarkers(map, locations) {
+var active = [];
+var index, index2;
+for(index = 0; index < locations.routes.length; ++index){
+  for(index2 = 0; index2 < locations.routes[index].length; ++index2)
+  {
+    active.push([locations.routes[index][index2].lat, locations.routes[index][index2].lng]);
+  }
+}
+
+var inactive = [];
+for(index = 0; index < locations.inactive.length; ++index){
+    inactive.push([locations.inactive[index].lat,locations.inactive[index].lng]);
+}
+
+var food = [];
+for(index = 0; index < banks.length; ++index){
+  food.push([banks[index].lat,banks[index].lng]);
+}
+
+var lines = [];
+for(index = 0; index < banks.length; ++index){
+  var temp = "start="+banks[index].addr;
+  if(locations.routes[index].length > 0){
+    temp+= "&way=";
+    for(index2 = 0; index2 < locations.routes[index].length; ++index2){
+      temp+= locations.routes[index][index2].addr+"|";
+    }
+    temp = temp.substring(0,temp.length-1);
+  }
+  temp = "directions.php?"+temp;
+  $.get(temp, function(data){
+    var tt = jQuery.parseJSON(data);
+    var showmap = [];
+    for(index2 = 0; index2 < tt.length; ++index2){
+      showmap.push(new google.maps.LatLng(tt[index2][0],tt[index2][1]));
+    }
+
+    var tempcolors = ['red','orange','yellow','green','blue','black'];
+    var flightPath = new google.maps.Polyline({
+      path: showmap,
+      geodesic: true,
+      strokeColor: tempcolors[Math.floor((Math.random() * tempcolors.length) + 0)],
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+
+    flightPath.setMap(fail);
+  });
+}
+
+function setMarkers(map, locations, icon) {
   var image = {
-    url: 'food.png',
+    url: icon,
     // This marker is 20 pixels wide by 32 pixels tall.
     size: new google.maps.Size(30, 30),
     // The origin for this image is 0,0.
