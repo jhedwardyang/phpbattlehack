@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
     <Say voice="woman">The Food Bank delivery driver will arrive in 5 minutes. Thank you for your donation.</Say>
-    <Record maxLength="20" />
+    <Sms from="+19027019264" to="+15162340602">The Food Bank delivery driver will arrive in 5 minutes. Thank you for your donation.</Sms>
 </Response>
