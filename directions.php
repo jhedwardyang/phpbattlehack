@@ -1,5 +1,4 @@
 <?php
-	$colors = array("#e74c3c", "#e67e22", "#2ecc71", "#3498db", "#9b59b6", "#34495e");
 	ini_set('memory_limit', '-1');	
 	$map = false;
 	$index = 0;
@@ -42,7 +41,8 @@
 	}
 	curl_close($curl);
 	$total = $total->routes[0];
-	$return = array( (object) array('loc' => array($total->legs[0]->start_location->lat, $total->legs[0]->start_location->lng), 'index' => $index));
+	$return = array( (object) array('duration' => array('text' => '', 'value' => 0), 'html_instructions' => '', 'distance' => array('text' => '', 'value' => 0),
+		'loc' => array($total->legs[0]->start_location->lat, $total->legs[0]->start_location->lng), 'index' => $index));
 	foreach($total->legs as $leg)
 	{
 		foreach($leg->steps as $step){

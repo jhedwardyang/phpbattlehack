@@ -11,6 +11,9 @@ if($v == 0) $v = 1;
     <meta charset="utf-8">
     <title>EnJoy by #impact</title>
     <style>
+      html,body,div{
+        font-family: 'Helvetica';
+      }
       a:link,a:active,a:visited{
         text-decoration: none;
         color:black;
@@ -33,8 +36,10 @@ if($v == 0) $v = 1;
         width:19% !important;
       }
       div.title{
-        font-size:14px;
+        font-size:20px;
         color:#2c3e50;
+        color:#333;
+        font-weight: bold;
       }
       div.directions{
         color:#333 !important;
@@ -105,19 +110,32 @@ function initialize() {
       var cc  = "black";
       var tt = jQuery.parseJSON(data);
       var showmap = [];
-      var colors = ["#e74c3c", "#e67e22", "#2ecc71", "#3498db", "#9b59b6", "#34495e"];
+      var colors = ["#c0392b", "#d35400", "#27ae60", "#2980b9", "#8e44ad", "#2c3e50"];
+      var colors_light = ["#e74c3c", "#e67e22", "#2ecc71", "#3498db", "#9b59b6", "#34495e"];
       var index = tt[1].index;
 
-      $("#hihi").append("<a href='#"+(parseInt(index)+1)+"'><div style='width:100%;text-align:center;padding:3px;margin:3px;background:"+colors[index]+";'><div class='title'>Food Bank "+(parseInt(index)+1)+"</div><div "+(<?php echo $v-1; ?> == index?"":"style='display:none;'")+" class='directions a"+index+"'></div></div></a>");
+      
+
+      $("#hihi").append("<a href='#"+(parseInt(index)+1)+"'><div style='width:100%;text-align:center;padding:3px;margin:3px;background:"+colors_light[index]+";'><div class='title'>Food Bank "+(parseInt(index)+1)+"</div><div "+(<?php echo $v-1; ?> == index?"":"style='display:none;'")+" class='directions a"+index+"'></div></div></a>");
 
 
-
+      var s1 =0, s2 =0;//s1 = distance (m), s2 = duration (s)
+      var toappend = "";
       for(index2 = 0; index2 < tt.length; ++index2){
         showmap.push(new google.maps.LatLng(tt[index2].loc[0],tt[index2].loc[1]));
         cc = tt[index2].index;
-        $(".a"+index).append(tt[index2].html_instructions);
-        $(".a"+index).append("<br />");
+        toappend+= tt[index2].html_instructions;
+        if(tt[index2].html_instructions.indexOf("Destination will be on the") <= -1) toappend+="<br />";
+        if(tt[index2].duration.text != ""){
+          toappend+= "<span style='font-size:14px;font-weight:bold;'>"+tt[index2].distance.text+" - "+tt[index2].duration.text+"</span><br />";
+          s1+= tt[index2].distance.value;
+          s2+= tt[index2].duration.value;
+        }
+        if(index2 != 0) toappend+="<br />";
       }
+      $(".a"+index).append("<span style='font-size:20px;font-weight:bold;'>Total: "+Math.ceil(s1/1000)+" km - "+Math.ceil(s2/60)+" minutes</span><br />");
+      $(".a"+index).append(toappend);
+      toappend = "";
 
       var flightPath = new google.maps.Polyline({
         path: showmap,
@@ -133,9 +151,9 @@ function initialize() {
     });
   }
 
-  setMarkers(map, active, 'food.png');
+  setMarkers(map, active, 'restaurant-map.png');
   setMarkers(map, inactive, 'food2.png');
-  setMarkers(map, food, 'bank.png');
+  setMarkers(map, food, 'foodbank-map.png');
   fail = map;
 }
 
