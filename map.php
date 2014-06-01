@@ -212,7 +212,15 @@ $(document).on('click', 'div.title', function(){
   </head>
   <body style='overflow:none;position:relative;'>
   <!-- <img src="http://projectenjoy.com/images/logo.png" height="127px" width="280px" style='position:absolute;top:5px;left:50px;z-index:9999;' />-->
-  <div id="map-canvas"></div>
+  <div style="position:absolute;bottom:20px;right:310px;width:150px;height:90px;background:#ccc;border:1px solid red;padding:15px;z-index:9999;">
+      <table>
+        <tr><td><img src="foodbank-map.png" /></td><td>Food Bank</td></tr>
+        <tr><td><img src="restaurant-map.png" /></td><td>Restaurant</td></tr>
+      </table>
+    </div>
+  <div id="map-canvas" style="position:relative;">
+    
+  </div>
     <div id="hihi" style="font-style: Helvetica;font-size:14px;height:100%;margin:0;padding:0;">
       <center><img src="logo.jpg" height="127px" width="280px"/></center>
     </div>
